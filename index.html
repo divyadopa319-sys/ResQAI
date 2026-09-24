@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ResQAI — Emergency Coordination Prototype</title>
+<link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">RQ</div><div><b>ResQAI</b><small>Emergency Intelligence</small></div></div>
+  <div class="proto">PROTOTYPE • SIMULATED DATA</div>
+  <nav>
+    <button class="nav active" data-nav="overview">◈ Overview</button>
+    <button class="nav" data-nav="incidents">◉ Live Incidents</button>
+    <button class="nav" data-nav="risk">△ Risk Intelligence</button>
+    <button class="nav" data-nav="resources">▣ Rescue Resources</button>
+    <button class="nav" data-nav="routes">⌁ Route Intelligence</button>
+    <button class="nav" data-nav="shelters">⌂ Safe Locations</button>
+    <button class="nav" data-nav="evidence">◌ Evidence Timeline</button>
+    <button class="nav" data-nav="analytics">▥ Analytics</button>
+  </nav>
+  <div class="side-bottom">
+    <div class="human"><i></i><div><b>Human-in-the-loop</b><small>AI recommends. Human operators decide.</small></div></div>
+    <button id="btn-reset-simulation" class="btn secondary">↺ Reset Simulation</button>
+  </div>
+</aside>
+
+<main>
+<header class="topbar">
+  <div><span class="eyebrow">EMERGENCY COORDINATION CENTER</span><h1 id="page-title">Operational Overview</h1></div>
+  <div class="top-actions"><span id="simulation-time" class="clock">SIM 16:00</span><span class="live">● DEMO ACTIVE</span><button id="btn-run-simulation" class="btn primary">▶ RUN EMERGENCY SIMULATION</button></div>
+</header>
+<div class="disclaimer"><b>PROTOTYPE • SIMULATED EMERGENCY DATA</b><span>AI recommendations are illustrative. Human operators retain final decision authority.</span></div>
+
+<section id="view-overview" class="view active">
+  <div class="hero-row">
+    <article class="hero panel"><div><span class="eyebrow">CLOSED-LOOP EMERGENCY INTELLIGENCE</span><h2>From scattered signals to coordinated rescue decisions.</h2><p>ResQAI fuses reports, evidence, evolving risk, resources and route safety into a continuously updated operational picture.</p><div class="flow"><b>Signals</b>→<b>Evidence</b>→<b>Risk</b>→<b>Priority</b>→<b>Resources</b>→<b>Route</b></div></div><svg class="mini-map" viewBox="0 0 400 220"><path d="M0 175C90 135 150 205 230 155S330 80 400 115" class="road"/><path d="M0 210C100 175 180 230 280 195S350 185 400 205V220H0Z" class="water"/><circle cx="245" cy="120" r="10" class="dot red"/><circle cx="320" cy="160" r="8" class="dot amber"/><text x="260" y="116">INC-015</text><text x="333" y="158">INC-014</text></svg></article>
+  <div class="kpis">
+    <div class="kpi"><span>ACTIVE INCIDENTS</span><b id="kpi-active">06</b><small>Operational queue</small></div><div class="kpi critical"><span>CRITICAL</span><b id="kpi-critical">02</b><small>Immediate review</small></div>
+    <div class="kpi"><span>TEAMS ACTIVE</span><b>04</b><small>Field resources</small></div><div class="kpi"><span>HIGH-RISK ZONES</span><b>03</b><small>Simulated assessment</small></div>
+    <div class="kpi"><span>PEOPLE REPORTED</span><b id="kpi-people">27</b><small>Active incidents</small></div><div class="kpi"><span>SAFE LOCATIONS</span><b>08</b><small>Scenario network</small></div>
+  </div></div>
+
+  <div id="priority-alert" class="alert hidden"><strong>!</strong><div><b>PRIORITY CHANGED</b><h3>INC-015 requires immediate operator review</h3><small>New evidence indicates vulnerability, rising water and route deterioration.</small></div><em>90/100</em></div>
+
+  <div class="two-col">
+    <article class="panel"><div class="head"><div><span class="eyebrow">LIVE INCIDENT MAP</span><h3>Simulated operational picture</h3></div><span class="tag">6 incidents</span></div><svg id="map-svg" class="map" viewBox="0 0 760 390"></svg></article>
+    <article class="panel"><div class="head"><div><span class="eyebrow">SELECTED INCIDENT</span><h3 id="selected-title">INC-015 · Nuzvid Sector 7</h3></div><span id="selected-priority" class="badge medium">MEDIUM</span></div><div id="incident-panel"></div></article>
+  </div>
+
+  <article id="reallocation-panel" class="panel realloc hidden"><div class="head"><div><span class="eyebrow">AI RESOURCE RECOMMENDATION</span><h3>Reallocate Team B → INC-015</h3></div><span class="review">HUMAN REVIEW REQUIRED</span></div><div class="realloc-grid"><div><b class="move">Team B <i>→</i> INC-015</b><p>Move rescue capability from INC-014 to the newly critical incident.</p></div><div class="reasons"><span>Priority: <b>CRITICAL 90/100</b></span><span>Route safety: <b>42/100</b></span><span>Vulnerable resident reported</span></div><div class="actions"><button id="btn-review-reallocation" class="btn secondary">Review</button><button id="btn-reject-reallocation" class="btn danger">Reject</button><button id="btn-approve-reallocation" class="btn primary">Approve</button></div></div></article>
+  <div id="operator-wait-banner" class="wait hidden">● <b>SIMULATION PAUSED — OPERATOR DECISION REQUIRED</b><span>Approve or reject the recommendation to continue.</span></div>
+
+  <div class="two-col bottom">
+    <article class="panel"><div class="head"><div><span class="eyebrow">INCOMING SIGNAL</span><h3>SMS / Call Intake</h3></div><span class="tag">SIMULATED</span></div><div id="incoming-sms-panel" class="sms"><b>SMS</b><div><strong>Incoming report</strong><p>“Water is rising near Sector 7. A wheelchair user is waiting for help.”</p><small id="location-status">Waiting for simulation…</small></div></div></article>
+    <article class="panel"><div class="head"><div><span class="eyebrow">RECENT ACTIVITY</span><h3>Decision Log</h3></div></div><div id="activity-log"></div></article>
+  </div>
+</section>
+
+<section id="view-incidents" class="view"><div class="section"><span class="eyebrow">OPERATIONS</span><h2>Live Incidents</h2><p>Incident queue generated from simulated evidence streams.</p></div><div id="incident-list" class="cards"></div></section>
+<section id="view-risk" class="view"><div class="section"><span class="eyebrow">RISK INTELLIGENCE</span><h2>Risk Evolution</h2><p>Risk changes as new evidence arrives.</p></div><div class="two-col"><article class="panel"><div class="head"><h3>INC-015 · Risk trajectory</h3><span class="badge critical">CRITICAL</span></div><div id="risk-evolution" class="risk"></div></article><article class="panel"><div class="head"><h3>Priority Engine</h3><span class="tag">EXPLAINABLE</span></div><div id="priority-factors"></div></article></div></section>
+<section id="view-resources" class="view"><div class="section"><span class="eyebrow">FIELD CAPABILITY</span><h2>Rescue Resources</h2><p>Capability-aware allocation with operator oversight.</p></div><div id="resource-list" class="cards"></div></section>
+<section id="view-routes" class="view"><div class="section"><span class="eyebrow">ROUTE INTELLIGENCE</span><h2>Route Safety</h2><p>Shortest route is not necessarily the safest route.</p></div><div id="route-list" class="cards"></div></section>
+<section id="view-shelters" class="view"><div class="section"><span class="eyebrow">SAFE LOCATIONS</span><h2>Shelter Network</h2><p>Simulated safe-location capacity.</p></div><div id="shelter-list" class="cards"></div></section>
+<section id="view-evidence" class="view"><div class="section"><span class="eyebrow">TRUST BEFORE TRIAGE</span><h2>Evidence Timeline</h2><p>Every decision is connected to an evidence state.</p></div><article class="panel"><div id="evidence-timeline" class="timeline"></div></article></section>
+<section id="view-analytics" class="view"><div class="section"><span class="eyebrow">DECISION ANALYTICS</span><h2>Operational Analytics</h2><p>Illustrative metrics for the simulated scenario.</p></div><div class="analytics"><article class="panel"><span>Evidence updates</span><b id="analytics-evidence">0</b></article><article class="panel"><span>Priority changes</span><b id="analytics-priority">0</b></article><article class="panel"><span>Operator actions</span><b id="analytics-actions">0</b></article><article class="panel"><span>Feedback updates</span><b id="analytics-feedback">0</b></article></div></section>
+
+<footer><span>Sense. Assess. Prioritize. Recommend. Learn.</span><b id="footer-state">RESQAI READY FOR SIMULATION</b></footer>
+</main></div><div id="toast-container"></div>
+</body></html>
