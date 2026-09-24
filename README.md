@@ -1,38 +1,32 @@
-┌──────────────────────────────┐
-│      CITIZEN / FIELD INPUT   │
-│ Reports · SMS · Calls        │
-│ Weather · Field observations │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│       EVIDENCE LAYER         │
-│ Extract · Locate · Validate  │
-│ Timeline · Confidence        │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│       RISK INTELLIGENCE      │
-│ Risk Evolution               │
-│ Dynamic Prioritization       │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│      DECISION SUPPORT        │
-│ Resource Recommendation      │
-│ Route Safety Analysis        │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│       HUMAN OPERATOR         │
-│ Review · Approve · Reject    │
-└──────────────┬───────────────┘
-               ↓
-┌──────────────────────────────┐
-│        RESCUE TEAM           │
-│ Response · Observation       │
-└──────────────┬───────────────┘
-               ↓
-        FIELD FEEDBACK
-               │
-               └───────────────→ ResQAI
-                                  ↺
+                 DATA / SIGNALS
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+   Citizens       Weather         Field Teams
+   SMS / Calls    Alerts          Reports
+        └──────────────┼──────────────┘
+                       ↓
+                RESQAI PROCESSING
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+    Evidence         Risk          Location
+    Timeline       Evolution       Detection
+        │              │              │
+        └──────────────┼──────────────┘
+                       ↓
+              PRIORITY ENGINE
+                       ↓
+          RESOURCE RECOMMENDATION
+                       ↓
+             ROUTE SAFETY ANALYSIS
+                       ↓
+                HUMAN OPERATOR
+                       ↓
+             RESCUE TEAM RESPONSE
+                       ↓
+              FIELD OBSERVATION
+                       ↓
+                NEW EVIDENCE
+                       │
+                       └──────→ REASSESS
